@@ -16,7 +16,7 @@ keywords = [
     "graph-learning",
     "pytorch",
     "pytorch-geometric",
-    "benchmark",
+    "benchmarking",
 ]
 dependencies = [
     "torch>=2.5",
