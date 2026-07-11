@@ -1,0 +1,89 @@
+[project]
+name = "gnnbench"
+version = "0.1.0"
+description = "Reproducible benchmark suite implementing GCN, GAE, and GIN with MLP baselines for node classification, link prediction, and graph classification."
+authors = [
+    {name = "Rodrigo Macias", email = "roymacpan@gmail.com"},
+]
+license = "MIT"
+license-files = ["LICENSE"]
+readme = "README.md"
+requires-python = ">=3.12"
+keywords = [
+    "deep-learning",
+    "graph-neural-networks",
+    "gnn",
+    "graph-learning",
+    "pytorch",
+    "pytorch-geometric",
+    "benchmark",
+]
+dependencies = [
+    "torch>=2.5",
+    "torch-geometric>=2.6",
+    "numpy>=1.26",
+    "scikit-learn>=1.5",
+    "matplotlib>=3.9",
+    "umap-learn>=0.5.11",
+    "numba>=0.59",  # Required by umap-learn; prevents incompatible old llvmlite versions on Python 3.12.
+    "pyyaml>=6.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.8",
+    "mypy>=1.10",
+    "types-pyyaml>=6.0",
+    "pre-commit>=4.0",
+]
+
+# torch is pinned to the CPU wheel index on every platform.
+# This is deliberate: the models are small enough to train on CPU,
+# and a CPU-only build supports the reproducibility of the benchmark.
+# A single build across Windows / Linux / macOS also means `uv.lock`
+# fully describes the compute environment, not just the source.
+[tool.uv.sources]
+torch = [{index = "pytorch-cpu"}]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gnnbench"]
+
+[tool.ruff]
+src = ["src"]
+line-length = 100
+indent-width = 4
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "N"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.12"
+files = ["src", "tests"]
+show_error_codes = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[[tool.mypy.overrides]]
+module = ["umap.*", "sklearn.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
