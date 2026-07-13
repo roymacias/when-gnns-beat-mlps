@@ -1,0 +1,9 @@
+# Link prediction (Amazon Computers).
+
+# Fractions of undirected edges held out for validation and evaluation.
+# Sized by absolute counts: 5% / 10% of ~245k edges yields tens of thousands
+# pairs (negligible standard error) while preserving the message-passing
+# structure, which shrinks with every held-out edge.
+split:
+  num_val: 0.05
+  num_test: 0.10

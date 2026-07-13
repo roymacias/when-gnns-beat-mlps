@@ -1,0 +1,58 @@
+{
+  "strategy": "RandomLinkSplit, message graph pinned to training edges",
+  "num_val": 0.05,
+  "num_test": 0.1,
+  "negative_ratio_eval": 1.0,
+  "seeds": {
+    "seed_01": {
+      "message_undirected_edges": 208982,
+      "val_pairs": 24586,
+      "test_pairs": 49172
+    },
+    "seed_07": {
+      "message_undirected_edges": 208982,
+      "val_pairs": 24586,
+      "test_pairs": 49172
+    },
+    "seed_11": {
+      "message_undirected_edges": 208982,
+      "val_pairs": 24586,
+      "test_pairs": 49172
+    },
+    "seed_13": {
+      "message_undirected_edges": 208982,
+      "val_pairs": 24586,
+      "test_pairs": 49172
+    },
+    "seed_29": {
+      "message_undirected_edges": 208982,
+      "val_pairs": 24586,
+      "test_pairs": 49172
+    },
+    "seed_37": {
+      "message_undirected_edges": 208982,
+      "val_pairs": 24586,
+      "test_pairs": 49172
+    },
+    "seed_41": {
+      "message_undirected_edges": 208982,
+      "val_pairs": 24586,
+      "test_pairs": 49172
+    },
+    "seed_47": {
+      "message_undirected_edges": 208982,
+      "val_pairs": 24586,
+      "test_pairs": 49172
+    },
+    "seed_59": {
+      "message_undirected_edges": 208982,
+      "val_pairs": 24586,
+      "test_pairs": 49172
+    },
+    "seed_66": {
+      "message_undirected_edges": 208982,
+      "val_pairs": 24586,
+      "test_pairs": 49172
+    }
+  }
+}

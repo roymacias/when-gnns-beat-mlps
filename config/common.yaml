@@ -1,0 +1,11 @@
+# Shared experiment protocol. Every pipeline stage reads this file.
+# Paths are relative to the repository root.
+
+seeds: [1, 7, 11, 13, 29, 37, 41, 47, 59, 66]
+device: cpu
+
+paths:
+  data: data
+  splits: data/splits
+  reports: reports
+  artifacts: artifacts
