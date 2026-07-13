@@ -1,0 +1,8 @@
+{
+  "dataset": "Amazon Computers",
+  "nodes": 13752,
+  "is_undirected": true,
+  "edges": 245861,
+  "avg_degree": 35.76,
+  "feature_dim": 767
+}

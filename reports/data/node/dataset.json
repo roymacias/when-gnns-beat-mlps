@@ -1,0 +1,18 @@
+{
+  "dataset": "Cora",
+  "nodes": 2708,
+  "is_undirected": true,
+  "edges": 5278,
+  "avg_degree": 3.9,
+  "feature_dim": 1433,
+  "classes": 7,
+  "class_distribution": {
+    "0": 351,
+    "1": 217,
+    "2": 418,
+    "3": 818,
+    "4": 426,
+    "5": 298,
+    "6": 180
+  }
+}
