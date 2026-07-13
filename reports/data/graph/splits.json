@@ -1,0 +1,60 @@
+{
+  "strategy": "stratified over graph labels",
+  "fractions": {
+    "train": 0.8,
+    "val": 0.1,
+    "test": 0.1
+  },
+  "seeds": {
+    "seed_01": {
+      "train": 3288,
+      "val": 411,
+      "test": 411
+    },
+    "seed_07": {
+      "train": 3288,
+      "val": 411,
+      "test": 411
+    },
+    "seed_11": {
+      "train": 3288,
+      "val": 411,
+      "test": 411
+    },
+    "seed_13": {
+      "train": 3288,
+      "val": 411,
+      "test": 411
+    },
+    "seed_29": {
+      "train": 3288,
+      "val": 411,
+      "test": 411
+    },
+    "seed_37": {
+      "train": 3288,
+      "val": 411,
+      "test": 411
+    },
+    "seed_41": {
+      "train": 3288,
+      "val": 411,
+      "test": 411
+    },
+    "seed_47": {
+      "train": 3288,
+      "val": 411,
+      "test": 411
+    },
+    "seed_59": {
+      "train": 3288,
+      "val": 411,
+      "test": 411
+    },
+    "seed_66": {
+      "train": 3288,
+      "val": 411,
+      "test": 411
+    }
+  }
+}
