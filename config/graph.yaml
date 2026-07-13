@@ -1,0 +1,9 @@
+# Graph classification (NCI1).
+
+# Stratified fractions over graphs. Sized by absolute counts: 10% of ~4,110
+# graphs yields ~411 test graphs, giving an accuracy standard error of roughly
+# 2% while preserving as much training data as possible.
+split:
+  train: 0.80
+  val: 0.10
+  test: 0.10
