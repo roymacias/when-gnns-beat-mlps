@@ -1,3 +1,20 @@
 # Node classification (Cora).
 
 # No split block: Cora ships with the canonical Planetoid.
+
+model:
+  # GCN model with only one hidden layer to avoid overfitting.
+  gcn:
+    hidden_dim: 16
+    dropout: 0.5
+  # MLP baseline with only one hidden layer to avoid overfitting.
+  # Wider than the GCN by design.
+  baseline:
+    hidden_dims: [32]
+    dropout: 0.5
+
+training:
+  optimizer: adam
+  learning_rate: 0.01
+  weight_decay: 0.0005
+  epochs: 200

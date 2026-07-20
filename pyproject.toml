@@ -27,6 +27,7 @@ dependencies = [
     "umap-learn>=0.5.11",
     "numba>=0.59",  # Required by umap-learn; prevents incompatible old llvmlite versions on Python 3.12.
     "pyyaml>=6.0",
+    "tqdm>=4.68.4",
 ]
 
 [dependency-groups]
@@ -36,6 +37,7 @@ dev = [
     "mypy>=1.10",
     "types-pyyaml>=6.0",
     "pre-commit>=4.0",
+    "types-tqdm>=4.68.0.20260608",
 ]
 
 # torch is pinned to the CPU wheel index on every platform.
@@ -82,7 +84,7 @@ disallow_untyped_defs = true
 disallow_incomplete_defs = true
 
 [[tool.mypy.overrides]]
-module = ["torch_geometric.*", "umap.*", "sklearn.*"]
+module = ["sklearn.*", "torch_geometric.*", "umap.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
