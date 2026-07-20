@@ -4,11 +4,10 @@ import torch
 import torch.nn as nn
 from torch_geometric.utils import to_undirected
 
-from gnnbench.models import GCN, MLP
+from gnnbench.models import GCN, MLP, decode
 
 
 def _toy_graph(features: int, nodes: int = 12) -> tuple[torch.Tensor, torch.Tensor]:
-    """A small connected graph with random node features."""
     x = torch.randn(nodes, features)
     edge_index = to_undirected(
         torch.stack([torch.arange(nodes), (torch.arange(nodes) + 1) % nodes])
@@ -56,5 +55,44 @@ def test_mlp_baseline_larger_than_gcn() -> None:
 def test_parameter_count_includes_bias() -> None:
     """Parameter counts include bias terms."""
     mlp = MLP(NODE_IN, [8], NODE_CLASSES, NODE_DROPOUT)
-    expected = NODE_IN * 8 + 8 + 8 * NODE_CLASSES + NODE_CLASSES  # weights + biases
+    expected = NODE_IN * 8 + 8 + 8 * NODE_CLASSES + NODE_CLASSES  # weights + biases, both layers
     assert _count_parameters(mlp) == expected
+
+
+# -------------------- Link prediction --------------------
+
+LINK_IN = 767  # Amazon Computers feature dimension
+GAE_HIDDEN = 64
+LINK_FUNNEL = [128, 64]
+EMBED = 32
+
+
+def test_gae_encoder_shape() -> None:
+    """The GAE encoder maps features to embeddings of the embedding dimension."""
+    x, edge_index = _toy_graph(features=LINK_IN)
+    encoder = GCN(LINK_IN, GAE_HIDDEN, EMBED, 0.0)
+    encoder.eval()
+    z = encoder(x, edge_index)
+    assert z.shape == (x.size(0), EMBED)
+
+
+def test_link_baseline_encoder_shape() -> None:
+    x = torch.randn(12, LINK_IN)
+    encoder = MLP(LINK_IN, LINK_FUNNEL, EMBED, 0.0)
+    encoder.eval()
+    z = encoder(x)
+    assert z.shape == (x.size(0), EMBED)
+
+
+def test_decoder_scores_one_per_pair() -> None:
+    z = torch.randn(12, EMBED)
+    pairs = torch.tensor([[0, 1, 2], [3, 4, 5]])
+    scores = decode(z, pairs)
+    assert scores.shape == (pairs.size(1),)
+
+
+def test_link_baseline_larger_than_gae_encoder() -> None:
+    """The baseline encoder must carry more parameters than the GAE encoder."""
+    gae = GCN(LINK_IN, GAE_HIDDEN, EMBED, 0.0)
+    baseline = MLP(LINK_IN, LINK_FUNNEL, EMBED, 0.0)
+    assert _count_parameters(baseline) > _count_parameters(gae)
