@@ -7,3 +7,16 @@
 split:
   num_val: 0.05
   num_test: 0.10
+
+model:
+  # GAE encoder: two GCN layers producing node embeddings.
+  gae:
+    hidden_dim: 64
+    embedding_dim: 32
+    dropout: 0.0
+  # Baseline encoder: MLP with funnel architecture.
+  # Wider than the GAE encoder by design.
+  baseline:
+    hidden_dims: [128, 64]
+    embedding_dim: 32
+    dropout: 0.0
