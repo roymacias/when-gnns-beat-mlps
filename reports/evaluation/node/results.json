@@ -1,0 +1,108 @@
+{
+  "metrics": {
+    "accuracy": {
+      "distribution": {
+        "gcn": [
+          {
+            "seed": 47,
+            "accuracy": 0.803
+          },
+          {
+            "seed": 1,
+            "accuracy": 0.811
+          },
+          {
+            "seed": 41,
+            "accuracy": 0.812
+          },
+          {
+            "seed": 29,
+            "accuracy": 0.813
+          },
+          {
+            "seed": 37,
+            "accuracy": 0.815
+          },
+          {
+            "seed": 66,
+            "accuracy": 0.817
+          },
+          {
+            "seed": 11,
+            "accuracy": 0.818
+          },
+          {
+            "seed": 59,
+            "accuracy": 0.819
+          },
+          {
+            "seed": 13,
+            "accuracy": 0.822
+          },
+          {
+            "seed": 7,
+            "accuracy": 0.824
+          }
+        ],
+        "baseline": [
+          {
+            "seed": 11,
+            "accuracy": 0.562
+          },
+          {
+            "seed": 37,
+            "accuracy": 0.576
+          },
+          {
+            "seed": 59,
+            "accuracy": 0.581
+          },
+          {
+            "seed": 13,
+            "accuracy": 0.586
+          },
+          {
+            "seed": 7,
+            "accuracy": 0.59
+          },
+          {
+            "seed": 1,
+            "accuracy": 0.592
+          },
+          {
+            "seed": 29,
+            "accuracy": 0.592
+          },
+          {
+            "seed": 66,
+            "accuracy": 0.597
+          },
+          {
+            "seed": 41,
+            "accuracy": 0.6
+          },
+          {
+            "seed": 47,
+            "accuracy": 0.6
+          }
+        ]
+      },
+      "median_seed": {
+        "gcn": 66,
+        "baseline": 1
+      },
+      "median": {
+        "gcn": 0.817,
+        "baseline": 0.592
+      },
+      "mean": {
+        "gcn": 0.8154,
+        "baseline": 0.5876
+      },
+      "std": {
+        "gcn": 0.00606,
+        "baseline": 0.01191
+      }
+    }
+  }
+}
