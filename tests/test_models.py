@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 from torch_geometric.utils import to_undirected
 
-from gnnbench.models import GCN, MLP, decode
+from gnnbench.models import GCN, GIN, MLP, GraphMLP, decode
 
 
 def _toy_graph(features: int, nodes: int = 12) -> tuple[torch.Tensor, torch.Tensor]:
@@ -96,3 +96,61 @@ def test_link_baseline_larger_than_gae_encoder() -> None:
     gae = GCN(LINK_IN, GAE_HIDDEN, EMBED, 0.0)
     baseline = MLP(LINK_IN, LINK_FUNNEL, EMBED, 0.0)
     assert _count_parameters(baseline) > _count_parameters(gae)
+
+
+# -------------------- Graph classification --------------------
+
+GRAPH_IN = 37  # NCI1 node feature dimension
+GIN_HIDDEN = 64
+GIN_LAYERS = 3
+GRAPH_FUNNEL = [256, 128, 64]
+GRAPH_CLASSES = 2
+
+
+def _toy_batch(graphs: int = 4, nodes: int = 8) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    """A small batch of graphs: features, edges, and the batch assignment."""
+    x = torch.randn(graphs * nodes, GRAPH_IN)
+    edges = []
+    batch = []
+    for g in range(graphs):
+        offset = g * nodes
+        ring = torch.stack(
+            [torch.arange(nodes) + offset, ((torch.arange(nodes) + 1) % nodes) + offset]
+        )
+        edges.append(to_undirected(ring))
+        batch.extend([g] * nodes)
+    edge_index = torch.cat(edges, dim=1)
+    return x, edge_index, torch.tensor(batch)
+
+
+def test_gin_batched_shape() -> None:
+    x, edge_index, batch = _toy_batch()
+    gin = GIN(GRAPH_IN, GIN_HIDDEN, GIN_LAYERS, GRAPH_CLASSES, 0.0)
+    gin.eval()
+    out = gin(x, edge_index, batch)
+    assert out.shape == (int(batch.max()) + 1, GRAPH_CLASSES)
+
+
+def test_graph_baseline_batched_shape() -> None:
+    x, edge_index, batch = _toy_batch()
+    baseline = GraphMLP(GRAPH_IN, GRAPH_FUNNEL, GRAPH_CLASSES, 0.0)
+    baseline.eval()
+    out = baseline(x, edge_index, batch)
+    assert out.shape == (int(batch.max()) + 1, GRAPH_CLASSES)
+
+
+def test_graph_models_share_readout_and_head() -> None:
+    """GIN and the baseline must use the same readout and a head of the same
+    shape, so the comparison isolates message passing (design decision (a))."""
+    gin = GIN(GRAPH_IN, GIN_HIDDEN, GIN_LAYERS, GRAPH_CLASSES, 0.0)
+    baseline = GraphMLP(GRAPH_IN, GRAPH_FUNNEL, GRAPH_CLASSES, 0.0)
+    # Both heads map the same hidden width to the class count.
+    assert gin.head.in_features == baseline.head.in_features == GIN_HIDDEN
+    assert gin.head.out_features == baseline.head.out_features == GRAPH_CLASSES
+
+
+def test_graph_baseline_larger_than_gin() -> None:
+    """The baseline must carry more parameters than GIN."""
+    gin = GIN(GRAPH_IN, GIN_HIDDEN, GIN_LAYERS, GRAPH_CLASSES, 0.0)
+    baseline = GraphMLP(GRAPH_IN, GRAPH_FUNNEL, GRAPH_CLASSES, 0.0)
+    assert _count_parameters(baseline) > _count_parameters(gin)
