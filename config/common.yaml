@@ -4,6 +4,10 @@
 seeds: [1, 7, 11, 13, 29, 37, 41, 47, 59, 66]
 device: cpu
 
+# With an even number of seeds the median falls between the two central runs.
+# 'upper' selects the higher run, 'lower' the lower.
+median_tiebreak: upper
+
 paths:
   data: data
   splits: data/splits
