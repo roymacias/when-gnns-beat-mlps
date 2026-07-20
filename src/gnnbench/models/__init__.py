@@ -2,6 +2,7 @@
 
 from gnnbench.models.decoder import decode
 from gnnbench.models.gcn import GCN
+from gnnbench.models.gin import GIN, GraphMLP
 from gnnbench.models.mlp import MLP
 
-__all__ = ["GCN", "MLP", "decode"]
+__all__ = ["GCN", "GIN", "MLP", "GraphMLP", "decode"]

@@ -69,12 +69,16 @@ def graph_dataset_stats(dataset: TUDataset) -> dict[str, object]:
     class_counts: dict[int, int] = {}
     node_counts: list[int] = []
     edge_counts: list[int] = []
+    degree_sum = 0.0
     is_undirected = True
     for graph in dataset:
         assert graph.x is not None and graph.y is not None  # dataset contract
-        node_counts.append(int(graph.num_nodes or 0))
+        nodes = int(graph.num_nodes)
+        node_counts.append(nodes)
         graph_is_undirected = bool(graph.is_undirected())
-        edge_counts.append(edge_count(graph, graph_is_undirected))
+        edges = edge_count(graph, graph_is_undirected)
+        edge_counts.append(edges)
+        degree_sum += average_degree(edges, nodes, graph_is_undirected)
         label = int(graph.y.item())
         class_counts[label] = class_counts.get(label, 0) + 1
         is_undirected &= graph_is_undirected
@@ -85,6 +89,7 @@ def graph_dataset_stats(dataset: TUDataset) -> dict[str, object]:
         "is_undirected": is_undirected,
         "avg_nodes_per_graph": round(sum(node_counts) / total, 2),
         "avg_edges_per_graph": round(sum(edge_counts) / total, 2),
+        "avg_degree_per_graph": round(degree_sum / total, 2),
         "feature_dim": dataset.num_features,
         "classes": dataset.num_classes,
         "class_counts": {str(k): v for k, v in sorted(class_counts.items())},

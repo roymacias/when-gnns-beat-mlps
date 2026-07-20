@@ -1,0 +1,108 @@
+{
+  "metrics": {
+    "accuracy": {
+      "distribution": {
+        "gin": [
+          {
+            "seed": 11,
+            "accuracy": 0.78345
+          },
+          {
+            "seed": 29,
+            "accuracy": 0.80049
+          },
+          {
+            "seed": 13,
+            "accuracy": 0.81022
+          },
+          {
+            "seed": 59,
+            "accuracy": 0.81265
+          },
+          {
+            "seed": 41,
+            "accuracy": 0.81509
+          },
+          {
+            "seed": 37,
+            "accuracy": 0.81995
+          },
+          {
+            "seed": 1,
+            "accuracy": 0.82238
+          },
+          {
+            "seed": 66,
+            "accuracy": 0.82968
+          },
+          {
+            "seed": 7,
+            "accuracy": 0.83455
+          },
+          {
+            "seed": 47,
+            "accuracy": 0.83942
+          }
+        ],
+        "baseline": [
+          {
+            "seed": 13,
+            "accuracy": 0.60827
+          },
+          {
+            "seed": 41,
+            "accuracy": 0.61557
+          },
+          {
+            "seed": 59,
+            "accuracy": 0.63017
+          },
+          {
+            "seed": 1,
+            "accuracy": 0.63747
+          },
+          {
+            "seed": 37,
+            "accuracy": 0.63747
+          },
+          {
+            "seed": 29,
+            "accuracy": 0.64964
+          },
+          {
+            "seed": 7,
+            "accuracy": 0.66423
+          },
+          {
+            "seed": 66,
+            "accuracy": 0.66423
+          },
+          {
+            "seed": 11,
+            "accuracy": 0.6691
+          },
+          {
+            "seed": 47,
+            "accuracy": 0.70073
+          }
+        ]
+      },
+      "median_seed": {
+        "gin": 37,
+        "baseline": 29
+      },
+      "median": {
+        "gin": 0.81995,
+        "baseline": 0.64964
+      },
+      "mean": {
+        "gin": 0.81679,
+        "baseline": 0.64769
+      },
+      "std": {
+        "gin": 0.01658,
+        "baseline": 0.02774
+      }
+    }
+  }
+}

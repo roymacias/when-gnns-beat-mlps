@@ -4,6 +4,7 @@
   "is_undirected": true,
   "avg_nodes_per_graph": 29.87,
   "avg_edges_per_graph": 32.3,
+  "avg_degree_per_graph": 2.16,
   "feature_dim": 37,
   "classes": 2,
   "class_counts": {

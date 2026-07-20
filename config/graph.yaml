@@ -7,3 +7,23 @@ split:
   train: 0.80
   val: 0.10
   test: 0.10
+
+model:
+  # GIN: three message-passing layers, each a two-layer update MLP and epsilon
+  # fixed at 0, with sum readout and then a linear classifier.
+  gin:
+    hidden_dim: 64
+    num_layers: 3
+    dropout: 0.0
+  # MLP baseline with funnel architecture, then the same readout and head.
+  # Wider than the GIN by design.
+  baseline:
+    hidden_dims: [256, 128, 64]
+    dropout: 0.0
+
+training:
+  optimizer: adam
+  learning_rate: 0.01
+  weight_decay: 0.0
+  epochs: 200
+  batch_size: 32
