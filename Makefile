@@ -62,8 +62,8 @@ test:
 	$(UV) pytest
 
 clean:
-	find . -type f -name "*.pyc" -delete
-	find . -type d -name "__pycache__" -delete
+	find . -path "./.venv" -prune -o -name "*.pyc" -exec rm -f {} +
+	find . -path "./.venv" -prune -o -name "__pycache__" -exec rm -rf {} +
 	rm -rf .ruff_cache/
 	rm -rf .pytest_cache/
 	rm -rf .mypy_cache/
@@ -83,16 +83,16 @@ data: download splits
 
 # Training and Evaluation
 node:
-	$(UV) python -m gnnbench.training.node --config config/node.yaml
-	$(UV) python -m gnnbench.evaluation.node --config config/node.yaml
+	$(UV) python -m gnnbench.training.node
+	$(UV) python -m gnnbench.evaluation.node
 
 link:
-	$(UV) python -m gnnbench.training.link --config config/link.yaml
-	$(UV) python -m gnnbench.evaluation.link --config config/link.yaml
+	$(UV) python -m gnnbench.training.link
+	$(UV) python -m gnnbench.evaluation.link
 
 graph:
-	$(UV) python -m gnnbench.training.graph --config config/graph.yaml
-	$(UV) python -m gnnbench.evaluation.graph --config config/graph.yaml
+	$(UV) python -m gnnbench.training.graph
+	$(UV) python -m gnnbench.evaluation.graph
 
 # End-to-End Pipeline
 all: data node link graph
