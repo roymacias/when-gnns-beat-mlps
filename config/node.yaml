@@ -12,3 +12,9 @@ model:
   baseline:
     hidden_dims: [32]
     dropout: 0.5
+
+training:
+  optimizer: adam
+  learning_rate: 0.01
+  weight_decay: 0.0005
+  epochs: 200
